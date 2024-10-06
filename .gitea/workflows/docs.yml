@@ -19,7 +19,7 @@ jobs:
           xcrun docc process-archive transform-for-static-hosting \
             "$PWD/.derivedData/Build/Products/Debug/Meta.doccarchive" \
             --output-path "docs" \
-            --hosting-base-path "Meta"
+            --hosting-base-path "/"
       - name: Modify Docs
         run: |
           echo "<script>window.location.href += \"/documentation/meta\"</script>" > docs/index.html;
