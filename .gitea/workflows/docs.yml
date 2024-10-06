@@ -22,7 +22,7 @@ jobs:
             --hosting-base-path "/"
       - name: Modify Docs
         run: |
-          echo "<script>window.location.href += \"/documentation/meta\"</script>" > docs/index.html;
+          echo "<script>window.location.href += \"/documentation/meta\"</script><p>Please enable JavaScript to view the documentation <a href='/documentation/meta'>here</a>.</p>" > docs/index.html;
           sed -i '' 's/,2px/,10px/g' docs/css/index.*.css
       - name: Upload
         uses: wangyucode/sftp-upload-action@v2.0.2
