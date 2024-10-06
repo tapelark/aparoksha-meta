@@ -23,7 +23,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/AparokshaUI/Meta", from: "0.1.0"),
+        .package(url: "https://git.aparoksha.dev/aparoksha/meta", from: "0.1.0"),
         .package(url: "https://github.com/david-swift/TermKit", branch: "main")
     ],
     targets: [

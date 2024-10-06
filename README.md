@@ -3,12 +3,12 @@
 </p>
 
 <p align="center">
-  <a href="https://aparokshaui.github.io/Meta/">
+  <a href="https://meta.aparoksha.dev/">
   Documentation
   </a>
   ·
-  <a href="https://github.com/AparokshaUI/Meta">
-  GitHub
+  <a href="https://git.aparoksha.dev/aparoksha/meta">
+  Code
   </a>
 </p>
 
@@ -34,7 +34,7 @@ It knows the following layers of UI:
 - A scene element is a template for a container holding one or multiple views (e.g., a window).
 - A view is a part of the actual UI inside a window, or another view.
 
-Detailed information can be found in the [docs](https://aparokshaui.github.io/Meta/).
+Detailed information can be found in the [docs](https://meta.aparoksha.dev/).
 
 ## Usage
 
@@ -46,7 +46,7 @@ Follow those steps if you want to create a UI framework.
 2. Open the `Package.swift` file.
 3. Into the `Package` initializer, under `dependencies`, paste:
 ```swift
-.package(url: "https://github.com/AparokshaUI/Meta", from: "0.1.0")   
+.package(url: https://git.aparoksha.dev/aparoksha/meta", from: "0.1.0")   
 ```
 
 ## Thanks
