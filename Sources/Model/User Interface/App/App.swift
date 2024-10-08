@@ -29,7 +29,7 @@ public protocol App {
     /// The app's scene.
     @SceneBuilder var scene: Scene { get }
     /// The app storage.
-    var app: Storage { get set }
+    var app: Storage { get }
 
     /// An app has to have an `init()` initializer.
     init()
