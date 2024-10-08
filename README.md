@@ -46,7 +46,7 @@ Follow those steps if you want to create a UI framework.
 2. Open the `Package.swift` file.
 3. Into the `Package` initializer, under `dependencies`, paste:
 ```swift
-.package(url: https://git.aparoksha.dev/aparoksha/meta", from: "0.1.0")   
+.package(url: "https://git.aparoksha.dev/aparoksha/meta", from: "0.1.0")   
 ```
 
 ## Thanks
