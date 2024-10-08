@@ -12,8 +12,6 @@ public enum StateManager {
 
     /// Whether to block updates in general.
     public static var blockUpdates = false
-    /// The application identifier.
-    static var appID: String?
     /// The functions handling view updates.
     static var updateHandlers: [(Bool) -> Void] = []
 

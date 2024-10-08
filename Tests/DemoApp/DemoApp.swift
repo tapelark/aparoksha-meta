@@ -14,11 +14,10 @@ struct TestExecutable {
 
 struct DemoApp: App {
 
-    let id = "io.github.AparokshaUI.DemoApp"
     // #if os(...)
-    var app: Backend1.Backend1App!
+    var app = Backend1.Backend1App()
     // #else
-    // var app: Backend2.Backend2App!
+    // var app = Backend2.Backend2App()
     // #endif
 
     var scene: Scene {

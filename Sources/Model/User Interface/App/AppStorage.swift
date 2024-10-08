@@ -14,10 +14,6 @@ public protocol AppStorage: AnyObject {
     /// The scene storage.
     var storage: StandardAppStorage { get set }
 
-    /// Initialize the app storage.
-    /// - Parameters id: The app's identifier.
-    init(id: String)
-
     /// Run the application.
     /// - Parameter setup: A closure that is expected to be executed right at the beginning.
     func run(setup: @escaping () -> Void)

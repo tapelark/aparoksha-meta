@@ -156,7 +156,7 @@ public enum Backend1 {
 
         public var storage: StandardAppStorage = .init()
 
-        public required init(id: String) { }
+        public init() { }
 
         public func run(setup: @escaping () -> Void) {
             setup()

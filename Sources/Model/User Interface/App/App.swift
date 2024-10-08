@@ -26,14 +26,10 @@ public protocol App {
     /// The app storage type.
     associatedtype Storage: AppStorage
 
-    /// The app's application ID.
-    var id: String { get }
     /// The app's scene.
     @SceneBuilder var scene: Scene { get }
-    // swiftlint:disable implicitly_unwrapped_optional
     /// The app storage.
-    var app: Storage! { get set }
-    // swiftlint:enable implicitly_unwrapped_optional
+    var app: Storage { get set }
 
     /// An app has to have an `init()` initializer.
     init()
@@ -58,8 +54,7 @@ extension App {
     ///
     /// To run the app, call the ``AppStorage/run(setup:)`` function.
     public static func setupApp() -> Self {
-        var appInstance = self.init()
-        appInstance.app = Storage(id: appInstance.id)
+        let appInstance = self.init()
         appInstance.app.storage.app = { appInstance }
         StateManager.addUpdateHandler { force in
             let updateProperties = force || appInstance.getState().contains { $0.value.content.update }
@@ -77,7 +72,6 @@ extension App {
                 appInstance.app.storage.sceneStorage.remove(at: index)
             }
         }
-        StateManager.appID = appInstance.id
         let state = appInstance.getState()
         appInstance.app.storage.stateStorage = state
         return appInstance
