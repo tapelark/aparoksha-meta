@@ -10,7 +10,7 @@
 /// This will be used if you do not provide a custom ``Widget/update(_:data:updateProperties:type:)`` method
 /// or call the ``Widget/updateProperties(_:updateProperties:)`` method in your custom update method.
 @propertyWrapper
-public struct ViewProperty<Pointer, ViewPointer>: ViewPropertyProtocol {
+public struct ViewProperty<Pointer, ViewPointer, ViewContext>: ViewPropertyProtocol where ViewContext: ViewRenderData {
 
     /// The wrapped value.
     public var wrappedValue: Body = []
@@ -22,10 +22,12 @@ public struct ViewProperty<Pointer, ViewPointer>: ViewPropertyProtocol {
     ///     - setView: Set the view.
     ///     - pointer: The pointer type of the parent view (usually a concrete view type).
     ///     - subview: The pointer type of the child view (usually a protocol, view class, or similar).
+    ///     - context: The view render data type.
     public init(
         set setView: @escaping (Pointer, ViewPointer) -> Void,
         pointer: Pointer.Type,
-        subview: ViewPointer.Type
+        subview: ViewPointer.Type,
+        context: ViewContext.Type
     ) {
         self.setView = setView
     }
@@ -41,6 +43,8 @@ protocol ViewPropertyProtocol {
     associatedtype Pointer
     /// The type of the view's content.
     associatedtype ViewPointer
+    /// The view render data type.
+    associatedtype ViewContext: ViewRenderData
 
     /// The wrapped value.
     var wrappedValue: Body { get }

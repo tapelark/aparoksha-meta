@@ -592,7 +592,12 @@ import TermKit
 
 public struct Frame: TermKitWidget {
 
-    @ViewProperty(set: { $0.addSubview($1) }, pointer: TermKit.Frame.self, subview: TermKit.View.self)
+    @ViewProperty(
+        set: { $0.addSubview($1) },
+        pointer: TermKit.Frame.self,
+        subview: TermKit.View.self,
+        context: MainViewContext.self
+    )
     var view: Body
 
     public init(@ViewBuilder content: @escaping () -> Body) { // Use the view builder
@@ -607,7 +612,7 @@ public struct Frame: TermKitWidget {
 
 ```
 
-Define the type of the view context with the `subview` property.
+Define the type of the view context with the `context` property.
 
 Remember not to use this property wrapper in the wrapper widget.
 
