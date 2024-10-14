@@ -86,8 +86,7 @@ The following code shows all of the available levels of UI for a typical desktop
 @main
 struct AwesomeApp: App { // The app (no DSL)
 
-    let id = "io.github.david_swift.AwesomeApp"
-    var app: GenericDesktopApp!
+    let app = SomeBackendApp()
 
     var scene: Scene { // The scene DSL
         Window("Awesome App") { // The view DSL
@@ -121,8 +120,7 @@ First, it is possible to create additional computed variables (such as `scene` a
 @main
 struct AwesomeApp: App {
 
-    let id = "io.github.david_swift.AwesomeApp"
-    var app: GenericDesktopApp!
+    let app = SomeBackendApp()
 
     var scene: Scene {
         MenuBar {

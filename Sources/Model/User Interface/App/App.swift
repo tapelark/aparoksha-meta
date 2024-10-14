@@ -11,8 +11,7 @@
 /// @main
 /// struct Test: App {
 ///
-///     let id = "io.github.AparokshaUI.TestApp"
-///     var app: BackendApp!
+///     let app = BackendApp()
 ///
 ///     var scene: Scene {
 ///         WindowScene()

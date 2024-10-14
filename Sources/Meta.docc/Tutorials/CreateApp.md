@@ -10,7 +10,7 @@ Add it as a dependency to your package manifest.
 If there is no backend for the UI framework available, you can create one yourself. Help is available under <doc:CreateBackend>.
 If you need a specific combination of platforms, creating an umbrella backend may be a solution. Find more information under <doc:Backends>.
 
-In this tutorial, [TermKitBackend](https://github.com/david-swift/TermKitBackend) will be used as a sample backend.
+In this tutorial, [TermKitBackend](https://git.aparoksha.dev/david-swift/term-kit-backend) will be used as a sample backend.
 
 ## Create the User Interface
 
@@ -22,8 +22,7 @@ import TermKitBackend
 @main
 struct AppName: App {
 
-    let id = "com.example.AppName"
-    var app: TermKitApp!
+    let app = TermKitApp()
 
     var scene: Scene {
         Window {
@@ -34,7 +33,7 @@ struct AppName: App {
 }
 ```
 
-The `id` property holds what is known as the bundle identifier on Apple platforms and as the Application ID on GNOME: a reverse DNS style identifier.
+The app property holds the platform-specific application object.
 Replace the type of the `app` property with the app storage type of your backend. Find the type in the backend's documentation - it conforms to ``AppStorage`` and usually has the suffix "App".
 
 Fill `scene` with the UI definition. More information about the UI elements and the organization of the code is available under <doc:DeclarativeDesign>.
@@ -60,12 +59,10 @@ import TermKitBackend
 @main
 struct AppName: App {
 
-    let id = "com.example.AppName"
-
 #if os(macOS)
-    var app: MacApp!
+    let app = MacApp(id: "dev.aparoksha.AppName")
 #else
-    var app: AdwaitaApp!
+    let app = AdwaitaApp(id: "dev.aparoksha.AppName")
 #endif
 
     var scene: Scene {

@@ -7,7 +7,7 @@ Multiple UI frameworks can be used in the same code, but the selection of the fr
 A backend is a Swift package. It is a fully functional UI framework on its own, based on the principles of <doc:StateConcept> and <doc:DeclarativeDesign>.
 The backend defines an ``AppStorage`` reference type, which implements a function for running and quitting the app. 
 It implements at least one type conforming to ``SceneElement`` that can be added to an app's scene.
-Most importantly, a backend provides various widgets.
+Most importantly, a backend usually provides various widgets.
 
 Widgets are special views conforming to the ``Widget`` protocol. While other types of views combine other views, as one can see in the articles <doc:DeclarativeDesign> and <doc:StateConcept>, widgets call the underlying UI framework in an imperative fashion. When creating a backend, determine the views available in the UI framework and provide a widget abstraction.
 
@@ -24,8 +24,7 @@ import TermKitBackend
 @main
 struct Subtasks: App {
 
-    let id = "io.github.david_swift.Subtasks"
-    var app: TermKitApp! // Render using the TermKitBackend
+    let app: TermKitApp() // Render using the TermKitBackend
 
     var scene: Scene {
         Window {
@@ -50,4 +49,4 @@ Pass the correct view render data type (``ViewRenderData``) containing the widge
 
 If some combinations of backends are often used, it might be sensible to create an umbrella backend.
 An umbrella backend is simply a collection of view and scene element definitions with support for a specific set of platforms.
-An alternative to the ``App`` protocol ensures that the right backend is selected on the right platform.
+An alternative to the ``App`` protocol ensures that the right backend is selected on the right platform. Additionally, it might be sensible to allow the user to overwrite a platform's default selection with an environment variable.

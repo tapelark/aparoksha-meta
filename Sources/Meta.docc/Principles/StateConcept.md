@@ -16,8 +16,7 @@ An app is built around data it can read and modify. This data is called state. A
 @main
 struct CounterApp: App {
 
-    let id = "io.github.david_swift.CounterApp"
-    var app: SomePlatformApp!
+    let app = SomeBackendApp()
 
     @State private var count = 0 // Initialize state
 
@@ -50,8 +49,7 @@ For more complex operations, computed variables can be helpful.
 @main
 struct CounterApp: App {
 
-    let id = "io.github.david_swift.CounterApp"
-    var app: SomePlatformApp!
+    let app = SomeBackendApp()
 
     @State private var count = 0
 
