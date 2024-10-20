@@ -44,7 +44,7 @@ public struct Binding<Value> {
     /// The value.
     public var wrappedValue: Value {
         get {
-            getValue()
+            value
         }
         nonmutating set {
             setValue(newValue)
@@ -64,7 +64,7 @@ public struct Binding<Value> {
     }
 
     /// The closure for getting the value.
-    private let getValue: () -> Value
+    private let value: Value
     /// The closure for settings the value.
     private let setValue: (Value) -> Void
     /// Handlers observing whether the binding changes.
@@ -86,7 +86,7 @@ public struct Binding<Value> {
     ///   - get: The closure for getting the value.
     ///   - set: The closure for setting the value.
     public init(get: @escaping () -> Value, set: @escaping (Value) -> Void) {
-        self.getValue = get
+        self.value = get()
         self.setValue = set
     }
 
@@ -108,6 +108,18 @@ public struct Binding<Value> {
         var newSelf = self
         newSelf.handlers.append(handler)
         return newSelf
+    }
+
+}
+
+extension Binding: Equatable where Value: Equatable {
+
+    /// Whether to binding values are equal.
+    /// - Parameters:
+    ///     - lhs: The first binding.
+    ///     - rhs: The second binding.
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.value == rhs.value
     }
 
 }
