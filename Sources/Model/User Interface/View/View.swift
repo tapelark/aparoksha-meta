@@ -32,7 +32,7 @@ extension View {
 
     /// The view's content.
     public var viewContent: Body {
-        [StateWrapper(content: { view }, state: getState())]
+        [StateWrapper(content: { view }, state: getState(), environment: getEnvironmentVariables())]
     }
 
     /// Get the state from the properties.
@@ -45,6 +45,18 @@ extension View {
             }
         }
         return state
+    }
+
+    /// Get the environment properties.
+    /// - Returns: The environment properties.
+    func getEnvironmentVariables() -> [String: any EnvironmentProtocol] {
+        var environment: [String: any EnvironmentProtocol] = [:]
+        for property in Mirror(reflecting: self).children {
+            if let label = property.label, let value = property.value as? any EnvironmentProtocol {
+                environment[label] = value
+            }
+        }
+        return environment
     }
 
 }

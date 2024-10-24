@@ -23,6 +23,7 @@ struct DemoApp: App {
     var scene: Scene {
         Backend1.Window("main", spawn: 1) {
             DemoView(app: app)
+                .environment("test", data: 5)
         }
     }
 
@@ -31,6 +32,8 @@ struct DemoApp: App {
 struct DemoView: View {
 
     @State private var model = TestModel()
+    @Environment("test")
+    private var test: Int?
     var app: any AppStorage
     let condition = false
 
@@ -46,6 +49,7 @@ struct DemoView: View {
                     app.addSceneElement("main")
                 }
             }
+            .onAppear { print(test ?? 0) }
         }
         TestView()
         testContent

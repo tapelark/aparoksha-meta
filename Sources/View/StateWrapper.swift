@@ -12,6 +12,8 @@ struct StateWrapper: ConvenienceWidget {
     var content: () -> Body
     /// The state information (from properties with the `State` wrapper).
     var state: [String: StateProtocol] = [:]
+    /// The environment properties.
+    var environment: [String: any EnvironmentProtocol] = [:]
 
     /// Initialize a `StateWrapper`.
     /// - Parameter content: The view content.
@@ -23,9 +25,15 @@ struct StateWrapper: ConvenienceWidget {
     /// - Parameters:
     ///   - content: The view content.
     ///   - state: The state information.
-    init(content: @escaping () -> Body, state: [String: StateProtocol]) {
+    ///   - environment: The environment properties.
+    init(
+        content: @escaping () -> Body,
+        state: [String: StateProtocol],
+        environment: [String: any EnvironmentProtocol]
+    ) {
         self.content = content
         self.state = state
+        self.environment = environment
     }
 
     /// Update a view storage.
@@ -51,6 +59,7 @@ struct StateWrapper: ConvenienceWidget {
                 property.value.content.update = false
             }
         }
+        assignEnvironment(data: data)
         guard let storage = storage.content[.mainContent]?.first else {
             return
         }
@@ -66,6 +75,7 @@ struct StateWrapper: ConvenienceWidget {
         data: WidgetData,
         type: Data.Type
     ) -> ViewStorage where Data: ViewRenderData {
+        assignEnvironment(data: data)
         let content = content().storage(data: data, type: type)
         let storage = ViewStorage(content.pointer, content: [.mainContent: [content]])
         storage.state = state
@@ -73,6 +83,14 @@ struct StateWrapper: ConvenienceWidget {
             element.value.setup()
         }
         return storage
+    }
+
+    /// Assign an environment value to the environment property.
+    /// - Parameter data: The widget data.
+    func assignEnvironment(data: WidgetData) {
+        for property in environment {
+            property.value.content.value = data.fields[property.value.id]
+        }
     }
 
 }
