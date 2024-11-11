@@ -18,8 +18,10 @@ public struct State<Value>: StateProtocol {
         }
         nonmutating set {
             rawValue = newValue
-            content.update = true
-            StateManager.updateViews(force: forceUpdates)
+            if !blockUpdates {
+                content.update = true
+                StateManager.updateViews(force: forceUpdates)
+            }
             writeValue?(newValue)
         }
     }
@@ -47,7 +49,10 @@ public struct State<Value>: StateProtocol {
     }
 
     /// Whether to force update the views when the value changes.
-    var forceUpdates: Bool
+    var forceUpdates = false
+
+    /// Whether to block updates.
+    var blockUpdates = false
 
     /// The closure for initializing the state property's value.
     var getInitialValue: () -> Value
@@ -67,21 +72,35 @@ public struct State<Value>: StateProtocol {
         self.forceUpdates = forceUpdates
     }
 
+    /// Initialize a property representing a state in the view with an autoclosure.
+    /// - Parameters:
+    ///     - wrappedValue: The wrapped value.
+    ///     - blockUpdates: Whether updates to this state value should not update the UI.
+    ///
+    /// This can be useful for storing data and reading this data on special occasions, e.g. on startup.
+    public init(wrappedValue: @autoclosure @escaping () -> Value, blockUpdates: Bool) {
+        getInitialValue = wrappedValue
+        self.blockUpdates = blockUpdates
+    }
+
     /// Initialize a property representing a state in the view with an explicit closure.
     /// - Parameters:
     ///     - wrappedValue: Get the wrapped value.
     ///     - writeValue: Perform additional operations when the value changes.
     ///     - forceUpdates: Whether to force update all available views when the property gets modified.
+    ///     - blockUpdates: Whether updates to this state value should not update the UI.
     ///
-    /// This initializer can be used to get data from the disk.
+    /// This initializer can be used e.g. to get data from the disk.
     public init(
         wrappedValue: @escaping () -> Value,
         writeValue: ((Value) -> Void)? = nil,
-        forceUpdates: Bool = false
+        forceUpdates: Bool = false,
+        blockUpdates: Bool = false
     ) {
         getInitialValue = wrappedValue
         self.writeValue = writeValue
         self.forceUpdates = forceUpdates
+        self.blockUpdates = blockUpdates
     }
 
     /// Get the initial value.
