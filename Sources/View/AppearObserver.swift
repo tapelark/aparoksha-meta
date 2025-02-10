@@ -9,7 +9,7 @@
 struct AppearObserver: ConvenienceWidget {
 
     /// The custom code to edit the widget.
-    var modify: (ViewStorage) -> Void
+    var modify: (ViewStorage, WidgetData) -> Void
     /// The wrapped view.
     var content: AnyView
 
@@ -23,7 +23,7 @@ struct AppearObserver: ConvenienceWidget {
         type: Data.Type
     ) -> ViewStorage where Data: ViewRenderData {
         let storage = content.storage(data: data, type: type)
-        modify(storage)
+        modify(storage, data)
         return storage
     }
 
@@ -50,8 +50,15 @@ extension AnyView {
     /// Run a function on the widget when it appears for the first time.
     /// - Parameter closure: The function.
     /// - Returns: A view.
-    public func inspectOnAppear(_ closure: @escaping (ViewStorage) -> Void) -> AnyView {
+    public func inspectOnAppear(_ closure: @escaping (ViewStorage, WidgetData) -> Void) -> AnyView {
         AppearObserver(modify: closure, content: self)
+    }
+
+    /// Run a function on the widget when it appears for the first time.
+    /// - Parameter closure: The function.
+    /// - Returns: A view.
+    public func inspectOnAppear(_ closure: @escaping (ViewStorage) -> Void) -> AnyView {
+        inspectOnAppear { storage, _ in closure(storage) }
     }
 
     /// Run a function when the view appears for the first time.
