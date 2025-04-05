@@ -24,17 +24,26 @@ let package = Package(
     targets: [
         .target(
             name: "Meta",
-            path: "Sources"
+            path: "Sources",
+            exclude: [
+                "CMakeLists.txt"
+            ]
         ),
         .target(
             name: "SampleBackends",
             dependencies: ["Meta"],
-            path: "Tests/SampleBackends"
+            path: "Tests/SampleBackends",
+            exclude: [
+                "CMakeLists.txt"
+            ]
         ),
         .executableTarget(
             name: "DemoApp",
             dependencies: ["SampleBackends"],
-            path: "Tests/DemoApp"
+            path: "Tests/DemoApp",
+            exclude: [
+                "CMakeLists.txt"
+            ]
         )
     ],
     swiftLanguageModes: [.v5]
