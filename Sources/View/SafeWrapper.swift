@@ -64,4 +64,28 @@ extension AnyView {
         wrap { storage, _, updateProperties in modify(storage, updateProperties) }
     }
 
+    /// A wrapper for generic simple modifiers.
+    /// - Parameters:
+    ///   - properties: The properties will be stored. Do not change the layout throughout updates.
+    ///   - update: If properties change, run this function.
+    /// - Returns: A view.
+    public func wrapModifier(properties: [any Hashable], update: @escaping (ViewStorage) -> Void) -> AnyView {
+        wrap { storage, _, updateProperties in
+            guard updateProperties else {
+                return
+            }
+            var shouldUpdate = false
+            for (index, property) in properties.enumerated() {
+                let update = {
+                    shouldUpdate = true
+                    storage.fields[index.description] = property
+                }
+                if let equatable = storage.fields[index.description] as? any Hashable {
+                    if property.hashValue != equatable.hashValue { update() }
+                } else { update() }
+            }
+            if shouldUpdate { update(storage) }
+        }
+    }
+
 }
