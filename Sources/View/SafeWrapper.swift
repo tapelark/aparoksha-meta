@@ -24,9 +24,7 @@ struct SafeWrapper: ConvenienceWidget {
         type: Data.Type
     ) -> ViewStorage where Data: ViewRenderData {
         let contentStorage = content.storage(data: data, type: type)
-        let storage = ViewStorage(contentStorage.pointer, content: [.mainContent: [contentStorage]])
-        modify(storage, data, true)
-        return storage
+        return .init(contentStorage.pointer, content: [.mainContent: [contentStorage]])
     }
 
     /// Update the stored content.

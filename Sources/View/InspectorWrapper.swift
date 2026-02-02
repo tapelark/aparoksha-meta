@@ -22,9 +22,7 @@ struct InspectorWrapper: ConvenienceWidget {
         data: WidgetData,
         type: Data.Type
     ) -> ViewStorage where Data: ViewRenderData {
-        let storage = content.storage(data: data, type: type)
-        modify(storage, data, true)
-        return storage
+        content.storage(data: data, type: type)
     }
 
     /// Update the stored content.
