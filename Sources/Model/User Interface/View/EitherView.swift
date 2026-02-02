@@ -6,6 +6,8 @@
 //
 
 /// A view building conditional bodies.
+///
+/// Do not forget to call the update function after constructing a new UI.
 public protocol EitherView: AnyView {
 
     /// Initialize the either view.

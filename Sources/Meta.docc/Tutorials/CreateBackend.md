@@ -373,9 +373,7 @@ For the ``EitherView``, it is again the initializer that has to match a requirem
         type: Data.Type
     ) -> ViewStorage where Data: ViewRenderData {
         let view = TermKit.View()
-        let storage = ViewStorage(view)
-        update(storage, data: data, updateProperties: true, type: type)
-        return storage
+        return .init(view)
     }
 
 // ...
@@ -386,6 +384,7 @@ Normally, you would initialize all your content storages in the container functi
 In this case, this does not work. If the either view is called via standard `if`/`else` syntax and the condition is `true`,
 we can access `view1`, but `view2` is empty (the actual view is not known). If `condition` is `false`, `view1` is empty and `view2` is known.
 Therefore, we have to wait with the initialization process until `condition` changes, which is why this is handled in the `update` function.
+Make sure to call the child view's `update` function after constructing a view in the parent view's `update` function.
 
 ```swift
 // ...
@@ -406,6 +405,7 @@ Therefore, we have to wait with the initialization process until `condition` cha
             view = content.pointer as? TermKit.View
         } else {
             let content = body.storage(data: data, type: type)
+            body.update(content, data: data, updateProperties: true, type: type)
             storage.content[condition.description] = [content]
             view = content.pointer as? TermKit.View
         }
