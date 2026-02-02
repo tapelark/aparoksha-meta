@@ -29,7 +29,12 @@ extension AppStorage {
     /// Focus the scene element with a certain id (if supported). Create the element if it doesn't already exist.
     /// - Parameter id: The element's id.
     public func showSceneElement(_ id: String) {
-        storage.sceneStorage.last { $0.id == id && !$0.destroy }?.show() ?? addSceneElement(id)
+        guard let storage = storage.sceneStorage.last(where: { $0.id == id && !$0.destroy }) else {
+            addSceneElement(id)
+            StateManager.updateViews(force: true)
+            return
+        }
+        storage.show()
     }
 
     /// Add a new scene element with the content of the scene element with a certain id.
@@ -39,6 +44,7 @@ extension AppStorage {
             let container = element.container(app: self)
             storage.sceneStorage.append(container)
             showSceneElement(id)
+            StateManager.updateViews(force: true)
         }
     }
 

@@ -143,7 +143,6 @@ extension Widget {
     ) -> ViewStorage where Data: ViewRenderData {
         let storage = ViewStorage(initializeWidget())
         initProperties(storage, data: data, type: type)
-        update(storage, data: data, updateProperties: true, type: type)
         return storage
     }
 

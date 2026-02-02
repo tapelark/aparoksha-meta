@@ -45,6 +45,7 @@ extension App {
             for element in app.scene where element is Storage.SceneElementType {
                 element.setupInitialContainers(app: app.app)
             }
+            StateManager.updateViews(force: true)
         }
     }
 
