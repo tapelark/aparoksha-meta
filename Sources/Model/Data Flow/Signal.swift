@@ -11,7 +11,7 @@ import Foundation
 public struct Signal {
 
     /// An action is signalized by toggling a boolean to `true` and back to `false`.
-    @State var boolean = false
+    var boolean = false
     /// A signal has a unique identifier.
     public let id: UUID = .init()
 
@@ -22,9 +22,15 @@ public struct Signal {
     public init() { }
 
     /// Activate a signal.
-    public func signal() {
+    public mutating func signal() {
         boolean = true
-        boolean = false
+    }
+
+    /// Deactivate the signal.
+    func updated() -> Self {
+        var signal = self
+        signal.boolean = false
+        return signal
     }
 
 }

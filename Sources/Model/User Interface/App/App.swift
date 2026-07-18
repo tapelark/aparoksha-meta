@@ -57,7 +57,15 @@ extension App {
         let appInstance = self.init()
         appInstance.app.storage.app = { appInstance }
         appInstance.app.storage.stateManager.addUpdateHandler { force in
-            let updateProperties = force || appInstance.getState().contains { $0.value.content.update }
+            var updateProperties = force
+            for property in appInstance.getState() {
+                if property.value.content.update {
+                    updateProperties = true
+                    property.value.content.update = false
+                } else if let value = property.value.content.value as? Signal, value.boolean == true {
+                    property.value.content.value = value.updated()
+                }
+            }
             var removeIndices: [Int] = []
             for (index, element) in appInstance.app.storage.sceneStorage.enumerated() {
                 if element.destroy {

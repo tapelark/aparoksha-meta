@@ -14,6 +14,7 @@ public struct StandardAppStorage {
     /// The state storage.
     var stateStorage: [String: StateProtocol] = [:]
 
+    /// The state manager.
     let stateManager: StateManager = .init()
 
     /// The scene.
