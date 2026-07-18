@@ -17,6 +17,11 @@ public struct WidgetData {
     /// Fields for custom data.
     public var fields: [String: Any] = [:]
 
+    /// The app's state manager.
+    public var stateManager: StateManager {
+        appStorage.storage.stateManager
+    }
+
     /// Modify the data so that there are no modifiers.
     public var noModifiers: Self {
         modify { $0.modifiers = [] }
