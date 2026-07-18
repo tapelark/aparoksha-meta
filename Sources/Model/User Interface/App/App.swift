@@ -45,7 +45,7 @@ extension App {
             for element in app.scene where element is Storage.SceneElementType {
                 element.setupInitialContainers(app: app.app)
             }
-            StateManager.updateViews(force: true)
+            app.app.storage.stateManager.updateViews(force: true)
         }
     }
 
@@ -56,7 +56,7 @@ extension App {
     public static func setupApp() -> Self {
         let appInstance = self.init()
         appInstance.app.storage.app = { appInstance }
-        StateManager.addUpdateHandler { force in
+        appInstance.app.storage.stateManager.addUpdateHandler { force in
             let updateProperties = force || appInstance.getState().contains { $0.value.content.update }
             var removeIndices: [Int] = []
             for (index, element) in appInstance.app.storage.sceneStorage.enumerated() {

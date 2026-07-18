@@ -31,7 +31,7 @@ extension AppStorage {
     public func showSceneElement(_ id: String) {
         guard let storage = storage.sceneStorage.last(where: { $0.id == id && !$0.destroy }) else {
             addSceneElement(id)
-            StateManager.updateViews(force: true)
+            storage.stateManager.updateViews(force: true)
             return
         }
         storage.show()
@@ -44,7 +44,7 @@ extension AppStorage {
             let container = element.container(app: self)
             storage.sceneStorage.append(container)
             showSceneElement(id)
-            StateManager.updateViews(force: true)
+            storage.stateManager.updateViews(force: true)
         }
     }
 

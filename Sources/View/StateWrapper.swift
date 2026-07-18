@@ -52,6 +52,9 @@ struct StateWrapper: ConvenienceWidget {
         var updateProperties = updateProperties
         for property in state {
             if let storage = storage.state[property.key]?.content.storage {
+                if storage.stateManager == nil {
+                    storage.stateManager = data.appStorage.storage.stateManager
+                }
                 property.value.content.storage = storage
             }
             if property.value.content.update {

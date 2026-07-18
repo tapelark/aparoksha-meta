@@ -45,6 +45,8 @@ class StateContent {
         var value: Any
         /// Whether to update the affected views.
         var update = false
+        /// The state manager.
+        var stateManager: StateManager?
 
         /// Initialize the storage.
         /// - Parameters:

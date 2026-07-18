@@ -20,7 +20,7 @@ public struct State<Value>: StateProtocol {
             rawValue = newValue
             if !blockUpdates {
                 content.update = true
-                StateManager.updateViews(force: forceUpdates)
+                content.storage?.stateManager?.updateViews(force: forceUpdates)
             }
             writeValue?(newValue)
         }
