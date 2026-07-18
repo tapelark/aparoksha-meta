@@ -59,6 +59,9 @@ extension App {
         appInstance.app.storage.stateManager.addUpdateHandler { force in
             var updateProperties = force
             for property in appInstance.getState() {
+                if property.value.content.storage?.stateManager == nil {
+                    property.value.content.storage?.stateManager = appInstance.app.storage.stateManager
+                }
                 if property.value.content.update {
                     updateProperties = true
                     property.value.content.update = false
