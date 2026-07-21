@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.2
 //
 //  Package.swift
 //  Meta
@@ -21,29 +21,23 @@ let package = Package(
             targets: ["Meta"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/swiftlang/swift-docc-plugin", from: "1.5.0")
+    ],
     targets: [
         .target(
             name: "Meta",
             path: "Sources",
-            exclude: [
-                "CMakeLists.txt"
-            ]
         ),
         .target(
             name: "SampleBackends",
             dependencies: ["Meta"],
             path: "Tests/SampleBackends",
-            exclude: [
-                "CMakeLists.txt"
-            ]
         ),
         .executableTarget(
             name: "DemoApp",
             dependencies: ["SampleBackends"],
             path: "Tests/DemoApp",
-            exclude: [
-                "CMakeLists.txt"
-            ]
         )
     ],
     swiftLanguageModes: [.v5]
