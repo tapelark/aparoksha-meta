@@ -14,6 +14,8 @@ public struct WidgetData {
     public var sceneStorage: SceneStorage
     /// The app storage of the parent app.
     public var appStorage: any AppStorage
+    /// The identifier for the current update.
+    public var updateID: String?
     /// Fields for custom data.
     public var fields: [String: Any] = [:]
 
@@ -31,9 +33,11 @@ public struct WidgetData {
     /// - Parameters:
     ///     - sceneStorage: The storage of the parent scene element.
     ///     - appStorage: The storage of the parent app.
-    public init(sceneStorage: SceneStorage, appStorage: any AppStorage) {
+    ///     - id: The id of the current update, if any. This can be helpful, but is not strictly required.
+    public init(sceneStorage: SceneStorage, appStorage: any AppStorage, id: String? = nil) {
         self.sceneStorage = sceneStorage
         self.appStorage = appStorage
+        updateID = id
     }
 
     /// Modify the widget data.

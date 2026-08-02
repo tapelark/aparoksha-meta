@@ -22,6 +22,37 @@ public protocol SceneElement {
     ///     - app: The app storage.
     ///     - updateProperties: Whether to update the view's properties.
     func update<Storage>(_ storage: SceneStorage, app: Storage, updateProperties: Bool) where Storage: AppStorage
+    /// Update the stored content, fetching the identifier.
+    /// - Parameters:
+    ///     - storage: The storage to update.
+    ///     - app: The app storage.
+    ///     - updateProperties: Whether to update the view's properties.
+    ///     - id: The identifier of the current update. Pass to the widget data.
+    func update<Storage>(
+        _ storage: SceneStorage,
+        app: Storage,
+        updateProperties: Bool,
+        id: String?
+    ) where Storage: AppStorage
+
+}
+
+extension SceneElement {
+
+    /// Update the stored content, fetching the identifier.
+    /// - Parameters:
+    ///     - storage: The storage to update.
+    ///     - app: The app storage.
+    ///     - updateProperties: Whether to update the view's properties.
+    ///     - id: The identifier of the current update. Pass to the widget data.
+    public func update<Storage>(
+        _ storage: SceneStorage,
+        app: Storage,
+        updateProperties: Bool,
+        id: String?
+    ) where Storage: AppStorage {
+        self.update(storage, app: app, updateProperties: updateProperties)
+    }
 
 }
 

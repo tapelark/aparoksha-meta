@@ -56,7 +56,7 @@ extension App {
     public static func setupApp() -> Self {
         let appInstance = self.init()
         appInstance.app.storage.app = { appInstance }
-        appInstance.app.storage.stateManager.addUpdateHandler { force in
+        appInstance.app.storage.stateManager.addUpdateHandler { force, id in
             var updateProperties = force
             for property in appInstance.getState() {
                 if property.value.content.storage?.stateManager == nil {
@@ -76,7 +76,7 @@ extension App {
                 } else if let scene = appInstance.scene.first(
                     where: { $0.id == element.id }
                 ) as? Storage.SceneElementType as? SceneElement {
-                    scene.update(element, app: appInstance.app, updateProperties: updateProperties)
+                    scene.update(element, app: appInstance.app, updateProperties: updateProperties, id: id)
                 }
             }
             for index in removeIndices {
