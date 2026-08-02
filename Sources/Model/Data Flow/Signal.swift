@@ -16,7 +16,15 @@ public struct Signal {
     public let id: UUID = .init()
 
     /// Whether the action has caused an update.
-    public var update: Bool { boolean }
+    public var update: Bool {
+        mutating get {
+            if boolean {
+                boolean = false
+                return true
+            }
+            return false
+        }
+    }
 
     /// Initialize a signal.
     public init() { }
@@ -24,13 +32,6 @@ public struct Signal {
     /// Activate a signal.
     public mutating func signal() {
         boolean = true
-    }
-
-    /// Deactivate the signal.
-    func updated() -> Self {
-        var signal = self
-        signal.boolean = false
-        return signal
     }
 
 }
