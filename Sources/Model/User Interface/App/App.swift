@@ -65,8 +65,6 @@ extension App {
                 if property.value.content.update {
                     updateProperties = true
                     property.value.content.update = false
-                } else if let value = property.value.content.value as? Signal, value.boolean == true {
-                    property.value.content.value = value.updated()
                 }
             }
             var removeIndices: [Int] = []
