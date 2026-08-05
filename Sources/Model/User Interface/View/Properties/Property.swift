@@ -241,12 +241,21 @@ public protocol OptionalProtocol: ExpressibleByNilLiteral {
     /// The type of the wrapped value.
     associatedtype Wrapped
 
+    /// Initialize from a non-optional value.
+    init(_ nonOptional: Wrapped)
+
     /// The value.
     var optionalValue: Wrapped? { get }
 
 }
 
 extension Optional: OptionalProtocol {
+
+    /// Initialize from a non-optional value.
+    /// - Parameter nonOptional: The value.
+    public init(_ nonOptional: Wrapped) {
+        self = nonOptional
+    }
 
     /// The optional value.
     public var optionalValue: Wrapped? {

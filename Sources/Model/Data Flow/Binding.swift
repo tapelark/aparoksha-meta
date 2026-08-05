@@ -158,3 +158,16 @@ extension Binding: CustomStringConvertible where Value: CustomStringConvertible 
     }
 
 }
+
+/// Extend bindings.
+extension Binding where Value: OptionalProtocol {
+
+    public func withDefault(_ value: Value.Wrapped) -> Binding<Value.Wrapped> {
+        .init {
+            wrappedValue.optionalValue ?? value
+        } set: { newValue in
+            wrappedValue = .init(newValue)
+        }
+    }
+
+}
