@@ -27,18 +27,19 @@ let package = Package(
     targets: [
         .target(
             name: "Meta",
-            path: "Sources",
+            path: "Sources"
         ),
         .target(
             name: "SampleBackends",
             dependencies: ["Meta"],
             path: "Tests/SampleBackends",
+            swiftSettings: [.defaultIsolation(MainActor.self)]
         ),
         .executableTarget(
             name: "DemoApp",
             dependencies: ["SampleBackends"],
             path: "Tests/DemoApp",
+            swiftSettings: [.defaultIsolation(MainActor.self)]
         )
-    ],
-    swiftLanguageModes: [.v5]
+    ]
 )

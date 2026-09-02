@@ -20,6 +20,7 @@
 /// }
 /// ```
 ///
+@MainActor
 public protocol App {
 
     /// The app storage type.
