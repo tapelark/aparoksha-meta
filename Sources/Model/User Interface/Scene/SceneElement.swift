@@ -6,6 +6,7 @@
 //
 
 /// A structure conforming to `SceneElement` can be added to an app's `scene` property.
+@MainActor
 public protocol SceneElement {
 
     /// The window type's identifier.

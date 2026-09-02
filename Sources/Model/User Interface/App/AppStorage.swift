@@ -6,6 +6,7 @@
 //
 
 /// The app storage protocol.
+@MainActor
 public protocol AppStorage: AnyObject {
 
     /// The type of scene elements (which should be backend-specific).

@@ -6,6 +6,7 @@
 //
 
 /// Data passed to widgets when initializing or updating the container.
+@MainActor
 public struct WidgetData {
 
     /// The view modifiers.

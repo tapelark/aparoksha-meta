@@ -6,6 +6,7 @@
 //
 
 /// The view type used for any form of a view.
+@MainActor
 public protocol AnyView {
 
     /// The view's content.

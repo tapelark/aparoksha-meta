@@ -8,6 +8,7 @@
 import Foundation
 
 /// The ``ViewBuilder`` is a result builder for views.
+@MainActor
 @resultBuilder
 public enum ViewBuilder {
 
