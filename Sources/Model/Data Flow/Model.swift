@@ -61,7 +61,7 @@ public protocol Model {
 public struct ModelData {
 
     /// The state value's identifier.
-    var storage: StateContent.Storage
+    weak var storage: StateContent.Storage?
     /// The state manager.
     var stateManager: StateManager?
     /// Whether to force update the views when this value changes.
@@ -80,9 +80,9 @@ extension Model {
             guard let data = model else {
                 return
             }
-            data.storage.value = newValue
-            data.storage.update = true
-            data.storage.stateManager?.updateViews(force: data.force)
+            data.storage?.value = newValue
+            data.storage?.update = true
+            data.storage?.stateManager?.updateViews(force: data.force)
         }
     }
 
@@ -100,9 +100,9 @@ extension Model {
         }
         var model = getModel()
         setModel(&model)
-        data.storage.value = model
-        data.storage.update = true
-        data.storage.stateManager?.updateViews(force: data.force)
+        data.storage?.value = model
+        data.storage?.update = true
+        data.storage?.stateManager?.updateViews(force: data.force)
     }
 
     /// Get the current version of the model.
@@ -114,7 +114,7 @@ extension Model {
         guard let data = model else {
             return self
         }
-        return data.storage.value as? Self ?? self
+        return data.storage?.value as? Self ?? self
     }
 
 }

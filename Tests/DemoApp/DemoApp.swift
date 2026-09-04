@@ -7,7 +7,7 @@ struct TestExecutable {
 
     public static func main() {
         DemoApp.main()
-        sleep(2)
+        RunLoop.main.run(until: .now.addingTimeInterval(3))
     }
 
 }
@@ -46,6 +46,7 @@ struct DemoView: View {
         Backend1.Wrapper {
             Backend1.Button(model.test) {
                 Task {
+                    model.updateAsync()
                     app.addSceneElement("main")
                 }
             }
@@ -65,12 +66,12 @@ struct DemoView: View {
 
 struct TestView: View {
 
-    @State private var test = TestModel()
+    @State private var test = "Label"
 
     var view: Body {
         Backend2.TestWidget4()
-        Backend1.Button(test.test) {
-            test.updateAsync()
+        Backend1.Button(test) {
+            test = "Directly use state"
         }
     }
 
